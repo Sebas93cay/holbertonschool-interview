@@ -12,11 +12,14 @@ def canUnlockAll(boxes, keys=[0], opened=None, key=0):
     and each box may contain keys to the other boxes.
     canUnlockAll determine if all the boxes can be opened
     """
-    if len(keys) == len(boxes) or len(boxes) == 0:
+    if len(keys) >= len(boxes) or len(boxes) == 0:
         return True
 
     if opened is None:
         opened = []
+
+    if key >= len(boxes):
+        return False
 
     newKeys = boxes[key]
     keys = list(set(keys).union(set(newKeys)))
