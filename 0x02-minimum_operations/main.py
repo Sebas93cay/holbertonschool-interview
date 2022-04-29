@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-getFactors = __import__('0-minoperations').getFactors
-minOperation = __import__('0-minoperations').minOperation
+"""
+Main file for testing
+"""
 
+minOperations = __import__('0-minoperations').minOperations
 
-# print(getFactors(234))
-print(minOperation(9))
-print(minOperation(100))
+n = 4
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+
+n = 12
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
