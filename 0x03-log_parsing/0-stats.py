@@ -1,10 +1,14 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+"""
+Write a script that reads stdin line by line and computes metrics:
+"""
 import sys
-import signal
-import time
 
 
 def printStatus(statusCodes):
+    """
+    print the number of times for each status code
+    """
     status = [(k, statusCodes[k]) for k in statusCodes.keys()]
     status.sort(key=lambda x: x[0])
     for (st, times) in status:
@@ -12,6 +16,9 @@ def printStatus(statusCodes):
 
 
 def printStats(totalSize, statusCodes):
+    """
+    print statics so far of the lines readed
+    """
     print("File size: {:d}".format(totalSize))
     printStatus(statusCodes)
 
