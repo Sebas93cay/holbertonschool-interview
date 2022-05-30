@@ -35,7 +35,7 @@ if __name__ == '__main__':
                 1 if line[7] in statusCodes else 1
             lineCounter = lineCounter + 1
             print(lineCounter)
-            if lineCounter % 4 == 0:
+            if lineCounter % 10 == 0:
                 printStats(totalSize, statusCodes)
     except(KeyboardInterrupt, SystemExit):
         printStats(totalSize, statusCodes)
