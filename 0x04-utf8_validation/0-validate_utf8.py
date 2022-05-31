@@ -27,11 +27,10 @@ def validUTF8(data):
             limit = 1
         if (ch.startswith(starts[2])):
             limit = 2
-            pass
         if (ch.startswith(starts[3])):
             limit = 3
-            pass
         if (ch.startswith(starts[4])):
             limit = 4
-            pass
+    if (byteCounter != limit):
+        return False
     return True
