@@ -13,13 +13,15 @@ def validUTF8(data):
     limit = 0
     byteCounter = 0
     for ch in bytes:
-        if(not any([ch.startswith(code) for code in starts])
-           or ch == '00000000'):
+        if(not any([ch.startswith(code) for code in starts])):
             return False
         if (ch.startswith(starts[0])):
-            byteCounter = byteCounter + 1
+            byteCounter += 1
             if (byteCounter > limit):
                 return False
+            continue
+        if (byteCounter != limit):
+            return False
         byteCounter = 1
         if (ch.startswith(starts[1])):
             limit = 1
