@@ -3,6 +3,7 @@
 Write a script that reads stdin line by line and computes metrics:
 """
 import sys
+import re
 
 
 def printStatus(statusCodes):
@@ -29,6 +30,8 @@ if __name__ == '__main__':
         totalSize = 0
         statusCodes = {}
         for line in sys.stdin:
+            if not re.search("^\d+(\.\d+){3}\s-\s\[\d+(-\d+){2}\s(\d+:){2}\d+\.\d+\] \"GET\s\/projects\/260\sHTTP\/1\.1\"\s(200|301|400|401|403|404|405|500)\s\d+",line):
+                continue
             line = line.split()
             totalSize = totalSize + int(line[8])
             statusCodes[line[7]] = statusCodes[line[7]] + \
