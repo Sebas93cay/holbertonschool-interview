@@ -23,7 +23,7 @@ def island_perimeter(map):
     if first_border is None:
         return 0
     perimeter = roundIslandFromPoint(map, first_border, first_border)
-    return 3
+    return perimeter
 
 
 def findFirstBorder(map):
@@ -35,7 +35,7 @@ def findFirstBorder(map):
     for y in range(len(map)):
         for x in range(len(map[0])):
             if map[y][x] == 1:
-                return [[y, x], [y, x - 1]]
+                return [(y, x), (1, 0)]
     return None
 
 
@@ -47,6 +47,7 @@ def roundIslandFromPoint(map, border, end):
     if nextToEndBorder(border, end):
         return 1
     nextBorder = findNextBorder(map, border)
+    return roundIslandFromPoint(map, nextBorder, end) + 1
 
 
 def nextToEndBorder(border, end):
@@ -54,10 +55,16 @@ def nextToEndBorder(border, end):
     Checks if start border is next to end border 
     return True if True, False otherwise
     """
-    if border[0] == end[0] and border[1][0] == end[1][0] - 1 and (
-            border[1][1] == end[1][1] + 1):
+    if addVectors(border[0], border[1]) == end[0]:
         return True
     return False
+
+
+def addVectors(vector1, vector2):
+    """
+    Return addition of vectors
+    """
+    return tuple(map(sum, zip(vector1, vector2)))
 
 
 def findNextBorder(map, border):
@@ -65,3 +72,42 @@ def findNextBorder(map, border):
     Returns the next border after 'border' following a
     anti-clock-wise rounding to the island
     """
+    nextPoint = addVectors(border[0], border[1])
+    for direction in posibleDirections(border[1]):
+        posible_border = (nextPoint, direction)
+        if isBorder(map, posible_border):
+            return posible_border
+    return None
+
+
+def posibleDirections(direction):
+    """Returns 3 posible directions for next border"""
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    reverseDirection = tuple(map(lambda x: -x, direction))
+    i = directions.index(reverseDirection)
+    return directions[(i + 1):] + directions[:i]
+
+
+def isBorder(map, posible_border):
+    """
+    Returns True if posible_border is a border in map
+    otherwise returns False
+    """
+    point = posible_border[0]
+    dir = posible_border[1]
+    borderCheckerSet = {(0, 1): ((0, 0), (-1, 0)),
+                        (0, -1): ((0, -1), (-1, -1)),
+                        (1, 0): ((0, 0), (0, -1)),
+                        (-1, 0): ((-1, 0), (-1, -1))}
+    if (getLand(map, addVectors(point, borderCheckerSet[dir][0])) +
+            getLand(map, addVectors(point, borderCheckerSet[dir][1]))) == 1:
+        return True
+    return False
+
+
+def getLand(map, point):
+    """Returns 1 if point is land in map, 0 otherwise."""
+    try:
+        return map[point[0]][point[1]]
+    except IndexError:
+        return 0
