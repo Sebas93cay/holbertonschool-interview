@@ -52,7 +52,7 @@ def roundIslandFromPoint(map, border, end):
 
 def nextToEndBorder(border, end):
     """
-    Checks if start border is next to end border 
+    Checks if start border is next to end border
     return True if True, False otherwise
     """
     if addVectors(border[0], border[1]) == end[0]:
