@@ -107,6 +107,8 @@ def isBorder(map, posible_border):
 
 def getLand(map, point):
     """Returns 1 if point is land in map, 0 otherwise."""
+    if (point[0] == -1 or point[1] == -1):
+        return 0
     try:
         return map[point[0]][point[1]]
     except IndexError:
