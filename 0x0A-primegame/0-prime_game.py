@@ -13,19 +13,30 @@ def isWinner(x, nums):
     if x > len(nums):
         return None
     counts = {maria: 0, ben: 0}
+    prime_numbers = get_prime_numbers(max(nums))
     for i in range(x):
-        counts[game(nums[i])] += 1
+        counts[game(nums[i], prime_numbers)] += 1
     return getWinner(counts)
 
 
-def game(n):
-    """Simulate a game for n as the length of the array"""
-    primeCounter = 0
-    numbers = list(range(n + 1))
-    for i in numbers[2:]:
+def get_prime_numbers(max):
+    """Get the prime numbers that are less than max"""
+    primes = []
+    for i in range(2, max+1):
         if isPrime(i):
-            primeCounter += 1
-    if primeCounter % 2 == 0:
+            primes.append(i)
+    return primes
+
+
+def game(n, prime_numbers):
+    """Simulate a game for n as the length of the array"""
+    prime_counter = 0
+    for i in prime_numbers:
+        if i <= n:
+            prime_counter += 1
+        else:
+            break
+    if prime_counter % 2 == 0:
         return ben
     return maria
 
