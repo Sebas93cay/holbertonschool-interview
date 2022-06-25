@@ -15,7 +15,6 @@ def isWinner(x, nums):
     counts = {maria: 0, ben: 0}
     for i in range(x):
         counts[game(nums[i])] += 1
-        print(counts)
     return getWinner(counts)
 
 
