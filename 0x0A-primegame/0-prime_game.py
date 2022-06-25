@@ -9,6 +9,7 @@ ben = 'Ben'
 
 
 def isWinner(x, nums):
+    """Return name of the winner"""
     if x > len(nums):
         return None
     counts = {maria: 0, ben: 0}
